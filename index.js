@@ -1,61 +1,69 @@
+//------------------------ Game Project---------------------------
 //Do you remember the game Battleship we created before? well .... it is time to make it with the DOM!!
 //We are providing you with the design of a board (in the DOM) for a player1,
-//you have to create the board for the player2 using the id property 'board_player2'
-//-> it is the 2nd list(ul) in your index.html file
+//you have to create the board for the player2 using the id property 'board_player2' -> it is the second list(ul) in your index.html file
 //First ask the players for their names (use propmt)
-
-//We want you to store the data of each player in two Player objects.
-//Each object has to store: name, remaining boats, and their respective board.
-
-//------------------------ Game Project---------------------------
-
-//Now each time the turn player clicks on any cell of the opponent's board (you have to verify if the player is clicking the right board)
-// the program needs to verify if there is an opponent's ship in that cell. If it is then the opponent has one less ship
-
-//Each board needs to be initialized randomly with '0' and four '1' wich means the state of the cell.
-//Numbers 1 are representing the 4 positions of the player's ships
+//We want you to store the data of each player in two Player objects. Each object has to store: name, remaining boats, and their respective board.
 //Also we want you to display the name of the turn player in the tag that has the id 'turn_player'.
 //And if there is a winner  a text with: 'Congratulationes {name_player}!! you win'
-//in the index.html file you are going to find 4 more ids:
-//'name_player1', 'name_player2', 'ships_player1', 'ships_player2'.
+//in the index.html file you are going to find 4 more ids: 'name_player1' , 'name_player2' , 'ships_player1' , 'ships_player2'.
 //We want to see the information of each player in the respective elements
 //As our previous Battleship, the winner is the player that hits the 4 opponent's ships first
+//Each board needs to be initialized randomly with '0' and four '1' wich means the state of the cell.
+//Numbers 1 are representing the 4 positions of the player's ships
+
+
 //one more Thing create a 'reset' and a 'new game' buttons as childs of the element with the id 'buttons'.
 //the reset button has to start the game again and the new game create a new game with new players and a new random board.
 
+//Now each time the turn player clicks on any cell of the opponent's board
+//(you have to verify if the player is clicking the right board) the program needs to verify if there is an opponent's ship in that cell.
+//If it is then the opponent has one less ship
 
-
-//Players' Names
-// player1.name = prompt("Player #1 type your name");
-// const player1Label = document.querySelector("#name_player1");
-// player1Label.textContent = player1.name;
-// player2.name = prompt("Player #2 type your name");
-// const player2Label = document.querySelector("#name_player2");
-// player2Label.textContent = player2.name;
 
 //Create Players
 
-let board1;
-let board2;
+//let board1;
+//let board2;
 
 let player1 = {
-  name: "",
+  name: "a",
   shipCount: 0,
-  gameBoard: board1,
+  gameBoard: [
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+  ],
 };
 let player2 = {
-  name: "",
+  name: "b",
   shipCount: 0,
-  gameBoard: board2,
+  gameBoard: [
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+  ],
 };
-const board_player1 = document.getElementById("board_player1");
-const board_player2 = document.getElementById("board_player2");
+// const board_player1 = document.getElementById("board_player1");
+// const board_player2 = document.getElementById("board_player2");
+
+//Players' Names
+// player1.name = prompt("Player #1 type your name");
+const player1Label = document.querySelector("#name_player1");
+player1Label.textContent = player1.name;
+// player2.name = prompt("Player #2 type your name");
+const player2Label = document.querySelector("#name_player2");
+player2Label.textContent = player2.name;
+
 
 ////////////////////the design of a board for players/////////////////
-const makeBoard = (player) => {  
 
+const makeBoard = (player) => {
   for (var x = 0; x < 4; x++) {
     const li = document.createElement("li"); // creating childs for the list (board), in this case represent a row number 'x' of the board
+    
 
     for (var y = 0; y < 4; y++) {
       const cell = document.createElement("div");
@@ -85,14 +93,26 @@ const makeBoard = (player) => {
   }
   return player.gameBoard;
 };
-board1 = makeBoard(player1);
-board2 = makeBoard(player2);
+player1.gameBoard = makeBoard(player1);
+player2.gameBoard = makeBoard(player2);
 
+//Step 3: Start the Game Play
+//coin toss to pick up a beginner
+let currentPlayer = player1;
+let opponent = player2;
 
+let coin = Math.floor(Math.random() * 2 + 1);
+if (coin !== 1) {
+  currentPlayer = player2;
+  opponent = player1;
+}
 
-///////////////Step 2: Randomly Add Ships to each Board////////////////////
-// alert("Your ships are being put on alert... Be ready for the battle");
+let turnReminder = document.querySelector("#turn_player");
+turnReminder.textContent = currentPlayer.name;
 
+///////////////Step 2: Randomly Add Opponent's Ships to the Board////////////////////
+
+alert("Your ships are being put on alert... Be ready for the battle");
 const boardSetup = (player) => {
   for (let i = 0; player.shipCount < 4; i++) {
     let x = Math.floor(Math.random() * 4);
@@ -108,27 +128,26 @@ const boardSetup = (player) => {
 boardSetup(player1);
 boardSetup(player2);
 
+const pl1ShipCountLabel = document.querySelector("#ships_player1");
+pl1ShipCountLabel.textContent = player1.shipCount;
+const pl2ShipCountLabel = document.querySelector("#ships_player2");
+pl2ShipCountLabel.textContent = player2.shipCount;
+
+console.log("OK"); //--------------------------------for debugging-----------------------------------
+//console.log(player1, player2);
+console.log(cell.value);
+
+
+
+
+
+
+
 /*
-
-
-
-//Step 3: Start the Game Play
-//coin toss to pick up a beginner
-let currentPlayer = player1;
-let opponent = player2;
-
-let coin = Math.floor(Math.random() * 2 + 1);
-if (coin !== 1) {
-  currentPlayer = player2;
-  opponent = player1;
-}
-
-let turnReminder = document.querySelector("#turn_player");
-turnReminder,textContent = currentPlayer.name;
 
 const battleship = () => {
   while (opponent.shipCount > 0) {
-    alert(`${currentPlayer.name} your turn`);
+    alert(`${currentPlayer.name} your turn. Click on any cell of the opponent's board`);
     let getOpponentX = prompt("Choose your `x` coordinate to strike.");
     let getOpponentY = prompt("Choose your `y` coordinate to strike.");
     if (opponent.gameBoard[getOpponentX][getOpponentY] == 1) {
