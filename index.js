@@ -1,5 +1,3 @@
-Copy;
-
 //Create Players
 let player1 = {
   name: "a",
@@ -164,8 +162,8 @@ resetBtn.addEventListener("click", resetGame); //set a listener to clicks on the
 
 //reset the game with the same players
 function resetGame() {
-  player1.ships = 0;
-  player2.ships = 0;
+  player1.shipCount = 0;
+  player2.shipCount = 0;
   player1.gameBoard = [
     [0, 0, 0, 0],
     [0, 0, 0, 0],
@@ -189,6 +187,11 @@ function resetGame() {
   launchGame(player2);
   player1ShipCount.textContent = player1.shipCount; // setup lives/ships numbers
   player2ShipCount.textContent = player2.shipCount;
+
+  // log number of ships on board for player1, player2, currentPlayer, and opponent
+  Array.from([player1, player2, currentPlayer, opponent]).forEach((player) => {
+    console.log(player.gameBoard.flat().filter((cell) => cell === 1).length);
+  });
 }
 
 //reloading for a new game
