@@ -162,10 +162,6 @@ buttons.appendChild(resetBtn); //add new elements to their parents
 buttons.appendChild(newGameBtn);
 resetBtn.addEventListener("click", resetGame); //set a listener to clicks on the button for reset with a reference to the function declared beneath
 
-player1.ships = 0;
-player2.ships = 0;
-
-
 //reset the game with the same players
 function resetGame() {
   player1.ships = 0;
@@ -182,12 +178,12 @@ function resetGame() {
     [0, 0, 0, 0],
     [0, 0, 0, 0],
   ];
-  
+
   board_player1.innerHTML = ""; // clear content of elements
   board_player2.innerHTML = "";
   boardSetup(player1); //reset boats position
   boardSetup(player2);
-    //set up new game flow
+  //set up new game flow
   setBeginner();
   launchGame(player1);
   launchGame(player2);
